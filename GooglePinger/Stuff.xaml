@@ -1,0 +1,15 @@
+﻿<Window x:Class="GooglePinger.Stuff"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GooglePinger"
+        mc:Ignorable="d"
+        Title="Choose Gateway IP" Height="450" Width="800" Icon="ico.ico" ShowInTaskbar="False">
+    <Grid x:Name="StuffMainGrid" Background="#FF1E1E1E">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="infoLabel" Content="Configuration file seems to be missing or corrupted&#xD;&#xA;Please choose gateway IP or input one manualy (click on this label) and than restart pinger" HorizontalAlignment="Left" Height="60" Margin="10,10,0,0" VerticalAlignment="Top" Width="762" Foreground="White" FontSize="18" MouseDown="infoLabel_MouseDown"/>
+    </Grid>
+</Window>
