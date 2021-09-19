@@ -1,0 +1,16 @@
+All configurables are stored in ipConfig.cfg
+You can configure:
+Inner and outer IPs
+Firewall rule switch (optional)
+
+This is how strings are binded
+#Inner IP (should be something like "192.168.1.1")
+#Outer IP (google.com by default)
+#Name of firewall rule (set it to "false" in order to prevent button from appearing)
+#Default action to sync rule state (1)
+
+
+(1) There is no way to get if rule is on or off by code, so app just turns on/off the rule.
+(1) If this rule is SUPER IMPORTANT, choose wisely (I am not responsible for damage it might deal)
+
+Config will reset itself to default if broken. If FW configuration is broken it will display a warning and turn switch off
