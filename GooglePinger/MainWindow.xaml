@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GooglePinger"
         mc:Ignorable="d" Height="59.428" Width="37.428" Background="#FF2D2D30" MaxWidth="186" MaxHeight="110" Icon="ico.ico" WindowStyle="None" ResizeMode="NoResize">
-    <Grid Margin="0,0,-0.142,0">
+    <Grid x:Name="mainGrid" Margin="0,0,-0.142,0">
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Label x:Name="label1" Content="9999" HorizontalAlignment="Left" Height="14.95" Margin="0.146,28.646,0,15.832" VerticalAlignment="Center" Width="37.424" Foreground="White" ToolTip="Local Ping" Padding="5,0"/>
-        <Label x:Name="label2" Content="9999" HorizontalAlignment="Left" Height="13.144" Margin="0.146,43.596,0,2.688" VerticalAlignment="Center" Width="37.424" Foreground="White" RenderTransformOrigin="0.819,1.819" ToolTip="Ping Google.com" Padding="5,0"/>
+        <Label x:Name="label1" Content="9999" HorizontalAlignment="Left" Height="14.95" Margin="0.146,28.646,0,15.832" VerticalAlignment="Top" Width="37.424" Foreground="White" ToolTip="Local Ping" Padding="5,0"/>
+        <Label x:Name="label2" Content="9999" HorizontalAlignment="Left" Height="13.144" Margin="0.146,43.596,0,2.688" VerticalAlignment="Top" Width="37.424" Foreground="White" RenderTransformOrigin="0.819,1.819" ToolTip="Ping Google.com" Padding="5,0"/>
         <Button x:Name="MinButton" Content="_" HorizontalAlignment="Left" Height="19.036" VerticalAlignment="Top" Width="18.858" Background="#FF2D2D30" BorderBrush="{x:Null}" Foreground="White" Click="MinButton_Click"/>
         <Button x:Name="closeButton" Content="X&#xD;&#xA;" HorizontalAlignment="Left" Height="19.036" VerticalAlignment="Top" Width="18.858" Margin="18.858,0,0,0" Background="#FF2D2D30" BorderBrush="{x:Null}" Foreground="White" Click="closeButton_Click"/>
         <Rectangle x:Name="draggingArea" Fill="#FF252526" HorizontalAlignment="Left" Height="13.571" Margin="0,19.036,0,0" VerticalAlignment="Top" Width="37.57" MouseDown="dragArea_MouseDown"/>

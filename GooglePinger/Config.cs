@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +16,7 @@ namespace GooglePinger
         //1 - global
         public static string[] Content { get; set; }
         public static string Name { get; } = "ipConfig.cfg";
+        public static bool FWRon { get; set; }
 
         public static void setup()
         {
@@ -22,6 +24,8 @@ namespace GooglePinger
             {
                 //fixing errors if any were found
                 List<byte> err = check();
+                bool FWerr = false;
+
                 if (err.Contains(1))
                 {
                     File.Create(Name).Close();
@@ -47,14 +51,37 @@ namespace GooglePinger
                     File.WriteAllLines(Name, Content);
                     
                 }
+                if(err.Contains(4))
+                {
+                    MessageBox.Show("Seems like firewall rule is not set.\nMore about that on GitHub");
+                    System.Diagnostics.Process.Start("explorer.exe", System.IO.Directory.GetCurrentDirectory());
+                    FWerr = true;
+                }
+                if(err.Contains(5))
+                {
+                    MessageBox.Show("Insufficient privileges to change FW rules\nIf you set cfg string to false ignore this message");
+                    FWerr = true;
+                }
+                if(err.Contains(6))
+                {
+                    MessageBox.Show("No default action\nMore about that on GitHub");
+                    FWerr = true;
+                }
                 if (err.Count == 0)
                 {
                     Content = File.ReadAllLines(Name);
                     break;
-                }    
+                }
+                else if (hasOnlyFWErr(err))
+                {
+                    Content = File.ReadAllLines(Name);
+                    Content[2] = "false"; //well, thats kinda dirty
+                    break;
+                }
             }
             
         }
+
 
 
         /* mistake codes and what they mean
@@ -62,6 +89,9 @@ namespace GooglePinger
         1 - This file does not exist
         2 - First ip is incorrect or missing(only IPv4 is acceptable)
         3 - Global IP(or link) is incorrect or missing (It's not checking if the link is actually leading somewhere)
+        4 - Policy name is not stated (and it is not false)
+        5 - Policy name is stated but Software wasn't ran as administrator
+        6 - Default sync method (action with firewall rule) is not set
         */
 
         private static List<byte> check()
@@ -111,10 +141,12 @@ namespace GooglePinger
             catch(Exception)
             {
                 errorLog.Add(2);
-                //i am returning it instantly cuz i dont wanna deal wit "index out of range" later
+                //I am returning it instantly cuz I dont wanna deal wit "index out of range" later
                 return errorLog;
             }
             
+            
+
             if (dots != 3 && !gotErrorErlier)
                 errorLog.Add(2);
             //checking global IP
@@ -128,8 +160,49 @@ namespace GooglePinger
                 errorLog.Add(3);
             }
 
-            //I cant remember any other things i should check
+            if(preload.Length < 4)
+            {
+                errorLog.Add(4);
+            }
+            else
+            {
+                if (preload[3] == "false")
+                {
+                    errorLog.Add(6);
+                } 
+                else
+                {
+                    if (preload[2] == "")
+                        errorLog.Add(4);
+                    if (!IsAdministrator())
+                        errorLog.Add(5);
+                    if (preload[3] != "yes" && preload[3] != "no")
+                        errorLog.Add(6);
+                    //there should also be a "rule existing check", but it was hard to implement, maybe later...
+
+                }
+            }
+
+            
+            //I cant remember any other things I should check
             return errorLog;
         }
-    }
+
+        private static bool hasOnlyFWErr(List<byte> err)
+        {
+            for(int i = 0; i < err.Count; i++)
+            {
+                if (err[i] != 4 && err[i] != 5 && err[i] != 6)
+                    return false;
+            }
+            return true;
+        }
+
+        static bool IsAdministrator()
+        {
+            WindowsIdentity identity = WindowsIdentity.GetCurrent();
+            WindowsPrincipal principal = new WindowsPrincipal(identity);
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
+        }
+    }  
 }

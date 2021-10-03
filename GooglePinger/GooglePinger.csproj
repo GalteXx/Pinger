@@ -75,6 +75,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Cmd.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="IpListingLabel.cs" />
     <Compile Include="Stuff.xaml.cs">
