@@ -12,6 +12,6 @@ This is how strings are binded
 
 (1) There is no way to get if rule is on or off by code, so app just turns on/off the rule.
 (1) If this rule is SUPER IMPORTANT, choose wisely (I am not responsible for damage it might deal)
-(1) "On" or "Off" are supported. If set to Off software will turn rule off when launched. If On than on
+(1) "yes" or "no" are supported. If set to no software will turn rule off when launched. If yes than on
 
 Config will reset itself to default if broken. If FW configuration is broken it will display a warning and turn switch off
