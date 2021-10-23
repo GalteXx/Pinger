@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GooglePinger"
-        mc:Ignorable="d" Height="59.428" Width="37.428" Background="#FF2D2D30" MaxWidth="186" MaxHeight="110" Icon="ico.ico" WindowStyle="None" ResizeMode="NoResize">
+        mc:Ignorable="d" Height="59.428" Width="37.428" Background="#FF2D2D30" MaxWidth="186" MaxHeight="110" Icon="ico.ico" WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False">
     <Grid x:Name="mainGrid" Margin="0,0,-0.142,0">
         <Grid.RowDefinitions>
             <RowDefinition/>
