@@ -15,7 +15,7 @@ namespace GooglePinger
         //0 - local
         //1 - global
         public static string[] Content { get; set; }
-        public static string Name { get; } = "ipConfig.cfg";
+        public static string Name { get; } = System.IO.Directory.GetCurrentDirectory() + "\\" + "ipConfig.cfg";
         public static bool FWRon { get; set; }
 
         public static void setup()
@@ -75,7 +75,17 @@ namespace GooglePinger
                 else if (hasOnlyFWErr(err))
                 {
                     Content = File.ReadAllLines(Name);
-                    Content[2] = "false"; //well, thats kinda dirty
+                    try
+                    { Content[2] = "false"; }
+                    catch(IndexOutOfRangeException)
+                    {
+                        string[] ex = Content;
+                        Content = new string[3];
+                        Content[0] = ex[0];
+                        Content[1] = ex[1];
+                        Content[2] = "false";
+                    }
+                     //well, thats kinda dirty
                     break;
                 }
             }
